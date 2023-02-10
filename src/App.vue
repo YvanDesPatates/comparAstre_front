@@ -1,61 +1,29 @@
 <template>
   <div id="app">
+    <Header/>
+    <img alt="Vue logo" src="./assets/logoAstre.png">
+    <h1>Compar'Astres</h1>
+
     <nav>
       <router-link to="/">Home</router-link>
-      |
       <router-link to="/about">About</router-link>
     </nav>
-    <h1>kzkzkzk</h1>
-    <ListeAstres
-        :planetes="planetes"
-    ></ListeAstres>
     <router-view/>
+
+    <Footer/>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import ListeAstres from "@/components/ListeAstres.vue";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: 'App',
   components: {
-    ListeAstres
+    Header,
+    Footer
   },
-
-  data() {
-    return {
-      planetes: []
-    }
-  },
-
-  created() {
-    this.loadPlanetes()
-  },
-
-  methods: {
-    async loadPlanetes() {
-      const loadedPlanetes = []
-      try {
-        const response = await axios.get(
-            "http://localhost:3000/astres"
-        );
-        let astres = response.data
-
-        for (let element in astres) {
-          let astre = astres[element]
-          loadedPlanetes.push({
-            nom: astre.nom,
-            system: astre.categorie,
-            img: "https://cdn.pixabay.com/photo/2019/07/03/12/14/saturn-4314403_960_720.png"
-          })
-        }
-        this.planetes = loadedPlanetes
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  }
 }
 
 </script>
