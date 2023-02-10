@@ -2,7 +2,7 @@
   <div id="contenant">
     <TuileAstre class="tuile"
         v-for="planete in planetes"
-        :key="planete.nom"
+        :key="planete._id"
         :nom="planete.nom"
         :system="planete.system"
         :img="planete.img"
