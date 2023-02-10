@@ -1,15 +1,7 @@
 <template>
   <div id="app">
     <Header/>
-    <img alt="Vue logo" src="./assets/logoAstre.png">
-    <h1>Compar'Astres</h1>
-
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-    </nav>
     <router-view/>
-
     <Footer/>
   </div>
 </template>
@@ -49,4 +41,5 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>

@@ -1,11 +1,13 @@
 <template>
 <div>
   <ul>
-    <li><a href="https://vuejs.org" target="_blank" rel="noopener">Home</a></li>
-    <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Comparaison</a></li>
-    <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Astres</a></li>
-    <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">Connexion</a></li>
+    <li><router-link to="/">Home</router-link></li>
+    <li><router-link to="/">Comparer</router-link></li>
+    <li><router-link to="/">Ajouter</router-link></li>
+    <li><router-link to="/">Connexion</router-link></li>
   </ul>
+  <img alt="Vue logo" src="../assets/logoAstre.png">
+  <h1>Compar'Astres</h1>
 </div>
 </template>
 
@@ -22,5 +24,9 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+
+img {
+  max-width: 30%;
 }
 </style>
