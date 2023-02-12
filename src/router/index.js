@@ -1,29 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../components/ListeAstres.vue'
+import App from '../App.vue'
+import astres from '../components/ListeAstres.vue'
+import astre from '../components/AstreDetail.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+const routes = [{
+    path: '/', name: 'astresList', component: astres
+}, {
+    path: '/astre/:astreId', name: 'astreDetail', component: astre
+},]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history', base: process.env.BASE_URL, routes
 })
+
+new Vue({
+    router, render: h => h(App)
+}).$mount('#app')
 
 export default router

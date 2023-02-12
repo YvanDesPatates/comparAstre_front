@@ -1,12 +1,14 @@
 <template>
   <div id="contenant">
-    <TuileAstre class="tuile"
-        v-for="planete in astres"
-        :key="planete._id"
-        :nom="planete.nom"
-        :system="planete.system"
-        :img="planete.img"
-    ></TuileAstre>
+    <router-link v-for="astre in astres"
+                 :key="astre._id"
+                 :to="{ name: 'astreDetail', params: { astreId: astre.id }}">
+      <TuileAstre class="tuile"
+                  :nom="astre.nom"
+                  :system="astre.system"
+                  :img="astre.image"
+      ></TuileAstre>
+    </router-link>
   </div>
 </template>
 
@@ -44,7 +46,8 @@ export default {
           loadedPlanetes.push({
             nom: astre.nom,
             system: astre.categorie,
-            img: "https://cdn.pixabay.com/photo/2019/07/03/12/14/saturn-4314403_960_720.png"
+            image: astre.image,
+            id: astre._id
           })
         }
         this.astres = loadedPlanetes
@@ -58,7 +61,13 @@ export default {
 </script>
 
 <style scoped>
-  #contenant{
-    display: flex;
-  }
+#contenant {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.tuile {
+  flex-basis: 30%;
+}
 </style>

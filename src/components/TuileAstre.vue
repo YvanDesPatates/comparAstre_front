@@ -1,6 +1,7 @@
 <template>
   <div class="card" style="width: 18rem;">
-    <img v-if="img" class="card-img-top" :src="img" alt="Card image cap">
+    <img v-if="img" class="card-img-top" :src="img" alt="image de l'astre">
+    <img v-else src="../assets/logoAstre.png" alt="image par défault, logo de compar'astre">
     <div class="card-body">
       <h5 class="card-title">{{ nom }}</h5>
       <p class="card-text">{{ system }}</p>
@@ -23,5 +24,6 @@ export default {
 <style scoped>
   img{
     max-width: 100%;
+    flex-basis: 33.333%;
   }
 </style>
