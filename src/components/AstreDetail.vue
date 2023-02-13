@@ -19,9 +19,17 @@
         <li v-if="astre.pesanteur"> pesanteur : {{ astre.pesanteur }}</li>
         <li v-if="astre.temperatureMoyenne"> température moyenne : {{ astre.temperatureMoyenne }}</li>
       </ul>
+
       <div v-if="astre.satellites !== []"> Les principaux satellites de {{ astre.nom }}</div>
       <ul>
         <li v-for="lune in astre.satellites" :key="lune"> {{ lune }}</li>
+      </ul>
+
+      <div v-if="rayonEnKm || volumeEnKm3"> calculé par notre site : </div>
+      <ul>
+        <li v-if="rayonEnKm"> rayon : {{rayonEnKm}} Km</li>
+        <li v-if="volumeEnKm3"> volume : {{volumeEnKm3}} km3</li>
+        <li v-if="densiteEnCm3"> densité : {{densiteEnCm3}} cm3</li>
       </ul>
 
     </div>
@@ -40,7 +48,7 @@ export default {
     }
   },
 
-  created() {
+  mounted() {
     this.loadAstre();
   },
 
@@ -59,6 +67,27 @@ export default {
           categorie: "cet astre n'existe pas"
         }
       }
+    }
+  },
+
+  computed: {
+    rayonEnKm(){
+      if (this.astre.taille){
+        return this.astre.taille/2
+      }
+      return false
+    },
+    volumeEnKm3(){
+      if (this.rayonEnKm) {
+        return 4 / 3 * Math.PI * Math.pow(this.rayonEnKm, 3)
+      }
+      return false;
+    },
+    densiteEnCm3(){
+      if(this.volumeEnKm3 && this.astre.masse){
+        return (this.volumeEnKm3 / 100000) / this.astre.masse
+      }
+      return false
     }
   }
 }
