@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import App from '../App.vue'
 import astres from '../components/ListeAstres.vue'
 import astre from '../components/AstreDetail.vue'
 
@@ -15,9 +14,5 @@ const routes = [{
 const router = new VueRouter({
     mode: 'history', base: process.env.BASE_URL, routes
 })
-
-new Vue({
-    router, render: h => h(App)
-}).$mount('#app')
 
 export default router
