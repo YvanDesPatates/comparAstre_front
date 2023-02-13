@@ -88,7 +88,6 @@ body {
   background: rgba(0,0,0,0.8);
   -webkit-box-shadow: 0 0 30px rgba(0,0,0,0.7);
   box-shadow: 0 0 30px rgba(0,0,0,0.8);
-  text-decoration: none;
 }
 
 .date h4 {
@@ -97,7 +96,6 @@ body {
   text-align: center;
   letter-spacing: 7px;
   text-shadow: 0 0 3px rgba(0,0,0,0.9);
-  text-decoration: none;
 }
 
 .one {

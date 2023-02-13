@@ -70,6 +70,7 @@ export default {
 .tuile{
   flex-basis: 20%;
   margin: 1%;
+  text-decoration: none;
 }
 
 </style>
