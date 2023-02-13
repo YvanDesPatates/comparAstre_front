@@ -1,37 +1,42 @@
 <template>
-  <div id="contenant">
-<!--    <span class="lds-grid" >loader</span>-->
-    <div class="lds-grid" v-if="!isLoaded">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+  <div>
+    <SearchBox @search="(express) => filtre(express)"></SearchBox>
+    <div id="contenant">
+      <!--    <span class="lds-grid" >loader</span>-->
+      <div class="lds-grid" v-if="!isLoaded">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <router-link v-else class="tuile" v-for="astre in astres"
+                   :key="astre._id"
+                   :to="{ name: 'astreDetail', params: { astreId: astre.id }}">
+        <TuileAstre
+            :nom="astre.nom"
+            :categorie="astre.categorie"
+            :img="astre.image"
+        ></TuileAstre>
+      </router-link>
     </div>
-    <router-link v-else class="tuile" v-for="astre in astres"
-                 :key="astre._id"
-                 :to="{ name: 'astreDetail', params: { astreId: astre.id }}">
-      <TuileAstre
-                  :nom="astre.nom"
-                  :categorie="astre.categorie"
-                  :img="astre.image"
-      ></TuileAstre>
-    </router-link>
   </div>
 </template>
 
 <script>
 import TuileAstre from "./TuileAstre.vue";
+import SearchBox from "@/components/SearchBox.vue";
 import axios from "axios";
 
 export default {
   name: "ListeAstres",
   components: {
     TuileAstre,
+    SearchBox
   },
 
   data() {
@@ -42,18 +47,16 @@ export default {
   },
 
   created() {
-    this.loadPlanetes()
+    this.loadPlanetes(null)
   },
 
   methods: {
-    async loadPlanetes() {
+    async loadPlanetes(regex) {
+      let url = regex ? "http://localhost:3000/astreByField/nom/"+regex+"*" : "http://localhost:3000/astres"
       const loadedPlanetes = []
       try {
-        const response = await axios.get(
-            "http://localhost:3000/astres"
-        );
+        const response = await axios.get(url);
         let astres = response.data
-
         for (let element in astres) {
           let astre = astres[element]
           loadedPlanetes.push({
@@ -69,6 +72,9 @@ export default {
         console.log(error);
       }
     },
+    filtre(entree){
+      this.loadPlanetes(entree)
+    }
   }
 
 }
@@ -81,7 +87,7 @@ export default {
   flex-wrap: wrap;
 }
 
-.tuile{
+.tuile {
   flex-basis: 20%;
   margin: 1%;
   text-decoration: none;
