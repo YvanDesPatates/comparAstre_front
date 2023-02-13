@@ -2,7 +2,7 @@
   <div id="app">
     <Header/>
     <transition name="fade" v-bind="$attrs" v-on="$listeners">
-      <router-view/>
+      <router-view class="headermargin"/>
     </transition>
     <Footer/>
   </div>
@@ -32,11 +32,15 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 1s;
+  transition: opacity 0.5s;
 }
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.headermargin {
+  margin-top: 100px;
 }
 
 
