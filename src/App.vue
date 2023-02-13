@@ -23,3 +23,8 @@ export default {
 
 </script>
 
+<style>
+#app{
+  background: rgba(0,0,0,0.8);
+}
+</style>

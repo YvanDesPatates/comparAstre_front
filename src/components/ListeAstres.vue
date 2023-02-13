@@ -1,11 +1,11 @@
 <template>
   <div id="contenant">
-    <router-link v-for="astre in astres"
+    <router-link class="tuile" v-for="astre in astres"
                  :key="astre._id"
                  :to="{ name: 'astreDetail', params: { astreId: astre.id }}">
-      <TuileAstre class="tuile"
+      <TuileAstre
                   :nom="astre.nom"
-                  :system="astre.system"
+                  :categorie="astre.categorie"
                   :img="astre.image"
       ></TuileAstre>
     </router-link>
@@ -45,7 +45,7 @@ export default {
           let astre = astres[element]
           loadedPlanetes.push({
             nom: astre.nom,
-            system: astre.categorie,
+            categorie: astre.categorie,
             image: astre.image,
             id: astre._id
           })
@@ -63,11 +63,13 @@ export default {
 <style scoped>
 #contenant {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-.tuile {
-  flex-basis: 30%;
+.tuile{
+  flex-basis: 20%;
+  margin: 1%;
 }
+
 </style>
