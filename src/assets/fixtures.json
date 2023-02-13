@@ -1,0 +1,65 @@
+{ "1":
+
+{
+  "nom": "Saturne",
+  "categorie": "planete",
+  "auteur": "rouxy",
+  "type": "gazeuse",
+  "taille": 58232,
+  "distanceTerre": 8.6,
+  "distanceEtoile": 9.5,
+  "systemePlanetaire": "system solaire",
+  "etoile": "soleil",
+  "galaxie": "voie lactée",
+  "pesanteur": 1044000,
+  "temperatureMoyenne": -150,
+  "satellites": {
+    "1": "Titan",
+    "2": "Japet",
+    "3": "Rhéa",
+    "4": "Thétis",
+    "5": "Pandore"
+  },
+  "image": "https://starwalk.space/gallery/images/saturn-planet-guide/1140x641.jpg"
+},
+
+  "2":
+
+{
+  "nom": "Terre",
+  "categorie": "planete",
+  "auteur": "julie",
+  "type": "tellurique",
+  "taille": 6371,
+  "distanceTerre": 0,
+  "distanceEtoile": 1,
+  "systemePlanetaire": "system solaire",
+  "etoile": "soleil",
+  "galaxie": "voie lactée",
+  "pesanteur": 9.807,
+  "temperatureMoyenne": 13.7,
+  "satellites": {
+    "1": "Lune"
+  },
+  "image": "https://www.airzen.fr/wp-content/uploads/2022/05/AdobeStock_386153207-scaled-e1653919712548.jpeg"
+},
+
+  "3": {
+    "nom": "Leviathe",
+    "categorie": "planete",
+    "auteur": "julie",
+    "type": "océanique",
+    "taille": 6371,
+    "distanceTerre": 0,
+    "distanceEtoile": 1,
+    "systemePlanetaire": "system solaire",
+    "etoile": "soleil",
+    "galaxie": "voie lactée",
+    "pesanteur": 9.807,
+    "temperatureMoyenne": 13.7,
+    "satellites": {
+      "1": "Lune"
+    },
+    "image": "https://vainkeurz.com/wp-content/uploads/2021/12/leviathe.jpg"
+  }
+}
