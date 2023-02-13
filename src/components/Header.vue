@@ -7,7 +7,7 @@
     <li><router-link to="/">Connexion</router-link></li>
   </ul>
   <img alt="Vue logo" src="../assets/logoAstre.png">
-  <h1>Compar'Astres</h1>
+  <h1>Compar ' Astres</h1>
 </div>
 </template>
 
@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Sacramento&display=swap");
+
 div {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -46,4 +48,12 @@ li {
 img {
   max-width: 30%;
 }
+
+h1 {
+  text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
+  color: #fff6a9;
+  font-family: "Sacramento",cursive;
+  text-align: center;
+}
+
 </style>
