@@ -1,38 +1,35 @@
 <template>
-  <div id="contenant">
-    <img v-if="astre.image" :src="astre.image" alt="une photo de l'astre">
-    <img v-else src="../assets/logoAstre.png" alt="cet astre n'as pas d'image">
-    <div id="description">
-      <div id="entete">
-        <h3>Nom : {{ astre.nom }}</h3>
-        <h4 id="cat">Catégorie : {{ astre.categorie }}</h4>
-      </div>
-      <div>{{ astre.nom }} en détails :</div>
-      <ul>
-        <li v-if="astre.type"> type : {{ astre.type }}</li>
-        <li v-if="astre.taille"> taille : {{ astre.taille }} km</li>
-        <li v-if="astre.distanceTerre"> distance à la Terre : {{ astre.distanceTerre }} ua</li>
-        <li v-if="astre.distanceEtoile"> distance à on étoile : {{ astre.distanceEtoile }} ua</li>
-        <li v-if="astre.systemePlanetaire"> système planétaire : {{ astre.systemePlanetaire }}</li>
-        <li v-if="astre.etoile"> étoile : {{ astre.etoile }}</li>
-        <li v-if="astre.galaxie"> galaxie : {{ astre.galaxie }}</li>
-        <li v-if="astre.pesanteur"> pesanteur : {{ astre.pesanteur }}</li>
-        <li v-if="astre.temperatureMoyenne"> température moyenne : {{ astre.temperatureMoyenne }}</li>
-      </ul>
+  <div class="contenant card" :style="{'background-image': 'url('+astre.image+')'}">
+      <div class="inner">
+          <div class="title">
+            <h3>Nom : {{ astre.nom }}</h3>
+            <h4 id="cat">Catégorie : {{ astre.categorie }}</h4>
+          </div>
+          <div class="subtitle">{{ astre.nom }} en détails :</div>
+            <ul>
+              <li v-if="astre.type"> type : {{ astre.type }}</li>
+              <li v-if="astre.taille"> taille : {{ astre.taille }} km</li>
+              <li v-if="astre.distanceTerre"> distance à la Terre : {{ astre.distanceTerre }} ua</li>
+              <li v-if="astre.distanceEtoile"> distance à on étoile : {{ astre.distanceEtoile }} ua</li>
+              <li v-if="astre.systemePlanetaire"> système planétaire : {{ astre.systemePlanetaire }}</li>
+              <li v-if="astre.etoile"> étoile : {{ astre.etoile }}</li>
+              <li v-if="astre.galaxie"> galaxie : {{ astre.galaxie }}</li>
+              <li v-if="astre.pesanteur"> pesanteur : {{ astre.pesanteur }}</li>
+              <li v-if="astre.temperatureMoyenne"> température moyenne : {{ astre.temperatureMoyenne }}</li>
+            </ul>
 
-      <div v-if="astre.satellites !== []"> Les principaux satellites de {{ astre.nom }}</div>
-      <ul>
-        <li v-for="lune in astre.satellites" :key="lune"> {{ lune }}</li>
-      </ul>
+            <div v-if="astre.satellites !== []"> Les principaux satellites de {{ astre.nom }}</div>
+            <ul>
+              <li v-for="lune in astre.satellites" :key="lune"> {{ lune }}</li>
+            </ul>
 
-      <div v-if="rayonEnKm || volumeEnKm3"> calculé par notre site : </div>
-      <ul>
-        <li v-if="rayonEnKm"> rayon : {{rayonEnKm}} Km</li>
-        <li v-if="volumeEnKm3"> volume : {{volumeEnKm3}} km3</li>
-        <li v-if="densiteEnCm3"> densité : {{densiteEnCm3}} cm3</li>
-      </ul>
-
-    </div>
+            <div v-if="rayonEnKm || volumeEnKm3"> calculé par notre site : </div>
+            <ul>
+              <li v-if="rayonEnKm"> rayon : {{rayonEnKm}} Km</li>
+              <li v-if="volumeEnKm3"> volume : {{volumeEnKm3}} km3</li>
+              <li v-if="densiteEnCm3"> densité : {{densiteEnCm3}} cm3</li>
+            </ul>
+        </div>
   </div>
 </template>
 
@@ -94,30 +91,57 @@ export default {
 </script>
 
 <style scoped>
-#contenant {
+
+body, html {
+  font-family: 'Vollkorn', serif;
+  font-weight: 400;
+  line-height: 1.3;
+  font-size: 16px;
+}
+
+.card {
+  height: 100%;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
   display: flex;
+  align-items: flex-end;
+  text-decoration: none;
+  border: 4px solid #219fb0;
+  margin-bottom: 20px;
+  background-repeat: no-repeat;
+  background-position: -30px -50px;
+  background-color: black;
+  justify-content: flex-end;
 }
 
-img {
-  max-width: 55%;
+.inner {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  box-sizing: border-box;
+  padding: 6%;
+  margin: 3%;
 }
 
-#description {
-  width: 40%;
-  margin-left: 1%;
+.title {
+  font-size: 24px;
+  color: black;
+  text-align: center;
+  font-weight: 700;
+  color: #181818;
+  text-shadow: 0px 2px 2px #a6f8d5;
+  position: relative;
+  margin: 0 0 20px 0;
+
 }
 
-#entete {
-  justify-content: left;
-  border-bottom: 1px solid;
-  margin-left: 2%;
+.subtitle {
+  color: #219fb0;
+  text-align: center;
 }
 
-#entete * {
-  margin: 5px 1%;
-}
-
-#cat {
-  padding-left: 4%;
-}
 </style>
