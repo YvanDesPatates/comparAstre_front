@@ -1,17 +1,8 @@
 <template>
 <div id="header">
-<!--  <h1>Compar ' Astres</h1>-->
-<!--  <ul>-->
-<!--    <li><router-link to="/">Home</router-link></li>-->
-<!--    <li><router-link to="/">Comparer</router-link></li>-->
-<!--    <li><router-link to="/">Ajouter</router-link></li>-->
-<!--    <li><router-link to="/">Connexion</router-link></li>-->
-<!--  </ul>-->
-
 
     <nav class="links" style="--items: 5;">
       <a class="titre" href="#">  <h3>Compar ' Astres</h3></a>
-<!--      <a href="#">Link 2</a>-->
       <a href="#">Comparer</a>
       <a href="#">Ajouter</a>
       <a href="#">Connexion</a>
@@ -30,60 +21,13 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Sacramento&display=swap");
 
-titre {
-  flex-grow: 2;
+h3 {
+  text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;
+  color: #fff6a9;
+  font-family: "Sacramento",cursive;
+  text-align: center;
+  font-size: 40px;
 }
-
-a {
-  flex-grow: 1;
-}
-/*div {*/
-/*  font-family: Avenir, Helvetica, Arial, sans-serif;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*  text-align: center;*/
-/*  color: #2c3e50;*/
-/*}*/
-
-/*nav {*/
-/*  padding: 30px;*/
-/*}*/
-
-/*nav a {*/
-
-/*  font-weight: bold;*/
-/*  color: #2c3e50;*/
-/*}*/
-
-/*li {*/
-/*  display: inline-block;*/
-/*  margin: 0 10px;*/
-/*  font-family: "Sacramento",cursive;*/
-/*  text-align: center;*/
-/*  font-size: 60px;*/
-/*  text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;*/
-/*  color: #fff6a9;*/
-/*}*/
-
-/*img {*/
-/*  max-width: 30%;*/
-/*}*/
-
-/*.header {*/
-/*  position: fixed;*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  background-color: #219fb0;*/
-/*  width: 100%;*/
-/*}*/
-
-/*h1 {*/
-/*  text-shadow: 0 0 5px #ffa500, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 40px #ffa500, 0 0 60px #ff0000, 0 0 10px #ff8d00, 0 0 98px #ff0000;*/
-/*  color: #fff6a9;*/
-/*  font-family: "Sacramento",cursive;*/
-/*  text-align: center;*/
-/*  font-size: 80px;*/
-/*}*/
 
 /* test */
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Lato:300,400,700');
@@ -91,54 +35,26 @@ html, body, h1, h2, h3, h4, h5, h6, p, li, ol, ul, pre {
   margin: 0;
   padding: 0;
 }
-html, body { min-height: 100%; }
 
-body {
-  background-color: #345;
-  background-image: linear-gradient(to bottom, #0009, transparent);
-  color: #eee;
-  font-family: 'Lato', sans-serif;
-  font-size: 62.5%;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-code {
-  background: #fff1;
-  font-family: 'Inconsolata', monospace;
-  padding: .2em .4em;
-}
-
-.content {
-  background-color: #fff;
-  border-radius: 8px;
-  box-sizing: border-box;
-  color: #666;
-  font-size: 1.6em;
-  line-height: 1.4em;
-  margin: 20px auto;
-  margin-top: 80px;
-  padding: 20px;
-  width: 100%;
-  max-width: 800px;
-}
 .content ul {
   margin: .5em 2em;
   padding: 0;
 }
 
-#footer a {
+a {
   color: #85c6f6;
   padding: 1em 0;
   text-decoration: none;
 }
-#footer ul {
+
+ul {
   display: flex;
   list-style: none;
   justify-content: center;
   font-size: 2em;
   font-weight: 300;
 }
-#footer ul li {
+ul li {
   padding: 0 .5em;
 }
 
