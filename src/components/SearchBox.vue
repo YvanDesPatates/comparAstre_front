@@ -5,7 +5,7 @@
 
   <!-- Search bar -->
   <div id="search-bar-box">
-    <input id="input" type="text" placeholder="entrez un nom" v-model="searchInput">
+    <input id="input" type="text" placeholder="entrez un nom" @keydown.enter="$emit('search', searchInput)" v-model="searchInput">
     <img src="../assets/search.png" id="search-icon" @click="$emit('search', searchInput)" alt="loupe">
   </div>
 
