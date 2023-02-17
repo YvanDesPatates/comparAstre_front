@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <Header/>
-    <transition name="fade" v-bind="$attrs" v-on="$listeners">
-      <div class="body">
-      <router-view class="headermargin"/>
-      </div>
-    </transition>
+    <div class="body">
+      <transition name="fade" v-bind="$attrs" v-on="$listeners">
+        <router-view/>
+      </transition>
+    </div>
     <Footer/>
   </div>
 </template>
