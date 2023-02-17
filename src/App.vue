@@ -2,7 +2,9 @@
   <div id="app">
     <Header/>
     <transition name="fade" v-bind="$attrs" v-on="$listeners">
+      <div class="body">
       <router-view class="headermargin"/>
+      </div>
     </transition>
     <Footer/>
   </div>
@@ -27,7 +29,14 @@ export default {
 
 <style>
 #app{
+  display: flex;
+  flex-direction: column;
   background: rgba(0,0,0,0.8);
+}
+
+.body {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .fade-enter-active,
@@ -37,10 +46,6 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-.headermargin {
-  margin-top: 100px;
 }
 
 
