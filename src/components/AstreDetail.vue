@@ -1,47 +1,55 @@
 <template>
-  <div class="contenant card" :style="{'background-image': 'url('+astre.image+')'}">
+  <div>
+    <Loader v-if="!isLoaded"></loader>
+    <div v-else class="contenant card" :style="{'background-image': 'url('+astre.image+')'}">
       <div class="inner">
-          <div class="title">
-            <h3>Nom : {{ astre.nom }}</h3>
-            <h4 id="cat">Catégorie : {{ astre.categorie }}</h4>
-          </div>
-          <div class="subtitle">{{ astre.nom }} en détails :</div>
-            <ul>
-              <li v-if="astre.type"> type : {{ astre.type }}</li>
-              <li v-if="astre.taille"> taille : {{ astre.taille }} km</li>
-              <li v-if="astre.distanceTerre"> distance à la Terre : {{ astre.distanceTerre }} ua</li>
-              <li v-if="astre.distanceEtoile"> distance à on étoile : {{ astre.distanceEtoile }} ua</li>
-              <li v-if="astre.systemePlanetaire"> système planétaire : {{ astre.systemePlanetaire }}</li>
-              <li v-if="astre.etoile"> étoile : {{ astre.etoile }}</li>
-              <li v-if="astre.galaxie"> galaxie : {{ astre.galaxie }}</li>
-              <li v-if="astre.pesanteur"> pesanteur : {{ astre.pesanteur }}</li>
-              <li v-if="astre.temperatureMoyenne"> température moyenne : {{ astre.temperatureMoyenne }}</li>
-            </ul>
-
-            <div v-if="astre.satellites !== []"> Les principaux satellites de {{ astre.nom }}</div>
-            <ul>
-              <li v-for="lune in astre.satellites" :key="lune"> {{ lune }}</li>
-            </ul>
-
-            <div v-if="rayonEnKm || volumeEnKm3"> calculé par notre site : </div>
-            <ul>
-              <li v-if="rayonEnKm"> rayon : {{rayonEnKm}} Km</li>
-              <li v-if="volumeEnKm3"> volume : {{volumeEnKm3}} km3</li>
-              <li v-if="densiteEnCm3"> densité : {{densiteEnCm3}} cm3</li>
-            </ul>
+        <div class="title">
+          <h3>Nom : {{ astre.nom }}</h3>
+          <h4 id="cat">Catégorie : {{ astre.categorie }}</h4>
         </div>
+        <div class="subtitle">{{ astre.nom }} en détails :</div>
+          <ul>
+            <li v-if="astre.type"> type : {{ astre.type }}</li>
+            <li v-if="astre.taille"> taille : {{ astre.taille }} km</li>
+            <li v-if="astre.distanceTerre"> distance à la Terre : {{ astre.distanceTerre }} ua</li>
+            <li v-if="astre.distanceEtoile"> distance à on étoile : {{ astre.distanceEtoile }} ua</li>
+            <li v-if="astre.systemePlanetaire"> système planétaire : {{ astre.systemePlanetaire }}</li>
+            <li v-if="astre.etoile"> étoile : {{ astre.etoile }}</li>
+            <li v-if="astre.galaxie"> galaxie : {{ astre.galaxie }}</li>
+            <li v-if="astre.pesanteur"> pesanteur : {{ astre.pesanteur }}</li>
+            <li v-if="astre.temperatureMoyenne"> température moyenne : {{ astre.temperatureMoyenne }}</li>
+          </ul>
+
+          <div v-if="astre.satellites !== []"> Les principaux satellites de {{ astre.nom }}</div>
+          <ul>
+            <li v-for="lune in astre.satellites" :key="lune"> {{ lune }}</li>
+          </ul>
+
+          <div v-if="rayonEnKm || volumeEnKm3"> calculé par notre site : </div>
+          <ul>
+            <li v-if="rayonEnKm"> rayon : {{rayonEnKm}} Km</li>
+            <li v-if="volumeEnKm3"> volume : {{volumeEnKm3}} km3</li>
+            <li v-if="densiteEnCm3"> densité : {{densiteEnCm3}} cm3</li>
+          </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "AstreDetail",
+  components: {
+    Loader,
+  },
 
   data() {
     return {
-      astre: {}
+      astre: {},
+      isLoaded: false,
     }
   },
 
@@ -57,6 +65,7 @@ export default {
             "http://localhost:3000/astreByID/" + id
         );
         this.astre = response.data
+        this.isLoaded = true
       } catch (error) {
         console.log(error);
         this.astre = {
@@ -92,20 +101,20 @@ export default {
 
 <style scoped>
 
-body, html {
-  font-family: 'Vollkorn', serif;
-  font-weight: 400;
-  line-height: 1.3;
-  font-size: 16px;
-}
+/*body, html {*/
+/*  !*font-family: 'Vollkorn', serif;*!*/
+/*  !*font-weight: 400;*!*/
+/*  line-height: 1.3;*/
+/*  font-size: 16px;*/
+/*}*/
 
 .card {
   height: 100%;
-  position: relative;
+  /*position: relative;*/
   padding: 20px;
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
   display: flex;
-  align-items: flex-end;
+  /*align-items: flex-end;*/
   text-decoration: none;
   border: 4px solid #219fb0;
   margin-bottom: 20px;
@@ -117,12 +126,12 @@ body, html {
 
 .inner {
   height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
   background: white;
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
   padding: 6%;
   margin: 3%;
 }
@@ -134,7 +143,7 @@ body, html {
   font-weight: 700;
   color: #181818;
   text-shadow: 0px 2px 2px #a6f8d5;
-  position: relative;
+  /*position: relative;*/
   margin: 0 0 20px 0;
 
 }
