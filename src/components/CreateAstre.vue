@@ -1,5 +1,16 @@
 <template>
-  <div id="form">
+  <div id="main">
+    <b-alert
+        id="alert"
+        :show="dismissCountDown"
+        dismissible
+        variant="danger"
+        @dismissed="dismissCountDown=0"
+        fade
+    >
+      {{ erreur }}
+    </b-alert>
+
     <b-form-group
         id="group"
         label="Création d'un nouvel astre"
@@ -7,60 +18,105 @@
         :state="formOK"
     >
 
-      <div class="titre"> image</div>
-      <b-form-input size="sm"
-                    class="input"
-                    v-model="newAstre.image"
-                    :state="imageOK ? null : false"
-                    placeholder="entrez l'url d'une image"
-                    trim></b-form-input>
+      <div id="form">
 
-      <div class="titre"> nom</div>
-      <b-form-input
-          size="sm"
-          class="input"
-          v-model="newAstre.nom"
-          :state="nomOK ? null : false"
-          trim></b-form-input>
+        <div class="formCote">
 
-      <div class="titre"> catégorie</div>
-      <b-form-input size="sm"
-                    class="input"
-                    v-model="newAstre.categorie"
-                    :state="categorieOK ? null : false"
-                    placeholder="planète, galaxie, étoile..."
-                    trim></b-form-input>
+          <div class="titre"> image</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.image"
+                        :state="imageOK ? null : false"
+                        placeholder="entrez l'url d'une image"
+                        trim></b-form-input>
 
-      <div class="titre"> type</div>
-      <b-form-input size="sm"
-                    class="input"
-                    v-model="newAstre.type"
-                    placeholder="télurique, spirale, naine..."
-                    trim></b-form-input>
+          <div class="titre"> nom</div>
+          <b-form-input
+              size="sm"
+              class="input"
+              v-model="newAstre.nom"
+              :state="nomOK ? null : false"
+              trim></b-form-input>
 
-      <div class="titre"> taille</div>
-      <b-form-input size="sm"
-                    class="input"
-                    v-model="newAstre.taille"
-                    placeholder="taille en km"
-                    type="number"
-                    min="0"
-                    :state="tailleOK ? null : false"
-                    trim></b-form-input>
+          <div class="titre"> catégorie</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.categorie"
+                        :state="categorieOK ? null : false"
+                        placeholder="planète, galaxie, étoile..."
+                        trim></b-form-input>
 
-      <div class="titre"> distance Terre</div>
-      <b-form-input size="sm"
-                    class="input"
-                    v-model="newAstre.type"
-                    placeholder="son éloignement à la Terre en ua (unité astronomique)"
-                    trim></b-form-input>
+          <div class="titre"> type</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.type"
+                        placeholder="télurique, spirale, naine..."
+                        trim></b-form-input>
+
+          <div class="titre"> diamètre en km</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.taille"
+                        placeholder="taille en km"
+                        type="number"
+                        min="0"
+                        :state="tailleOK ? null : false"
+                        trim></b-form-input>
+
+        </div>
+
+        <div class="formCote">
+
+          <div class="titre"> distance Terre en ua</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.distanceTerre"
+                        placeholder="son éloignement à la Terre en ua (unité astronomique)"
+                        type="number"
+                        trim></b-form-input>
+
+          <div class="titre"> systeme planétaire</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.systemePlanetaire"
+                        placeholder="Solaire, Alpha Centauri, Liche..."
+                        trim></b-form-input>
+
+          <div class="titre"> galaxie</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.galaxie"
+                        placeholder="Voie Lactée, Galaxie naine du Grand Chien..."
+                        trim></b-form-input>
+
+          <div class="titre"> température moyenne en °C</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.temperatureMoyenne"
+                        placeholder="13.7, -63, 5504.85..."
+                        type="number"
+                        trim></b-form-input>
+
+          <div class="titre"> pesanteur en N/kg</div>
+          <b-form-input size="sm"
+                        class="input"
+                        v-model="newAstre.galaxie"
+                        placeholder="9.8, 3.7, 10.44..."
+                        type="number"
+                        trim></b-form-input>
+
+
+        </div>
+
+      </div>
 
     </b-form-group>
 
     <b-button
         id="submit"
         variant="outline-success"
-        @click="submitFrom"> créer </b-button>
+        @click="submitFrom"> créer
+    </b-button>
   </div>
 
 </template>
@@ -78,10 +134,10 @@ export default {
     categorieOK() {
       return this.newAstre.categorie !== ""
     },
-    imageOK(){
+    imageOK() {
       return this.newAstre.image !== ""
     },
-    tailleOK(){
+    tailleOK() {
       return this.newAstre.taille !== ""
     },
     formOK() {
@@ -91,14 +147,21 @@ export default {
 
   data() {
     return {
-      invalidFeedback: 'les champs image, nom, categorie et taille sont obligatoire',
+      erreur: 'erreur',
+      dismissCountDown: 0,
+      invalidFeedback: 'remplir les champs obligatoires',
       newAstre: {
         image: "",
         auteur: "Anonyme", //le lier au nom de l'utilisateur connecté
         nom: "",
         categorie: "",
         type: null,
-        taille: "null"
+        taille: "",
+        distanceTerre: null,
+        systemePlanetaire: null,
+        galaxie: null,
+        temperatureMoyenne: null,
+        pesanteur: null
       }
     }
   },
@@ -119,34 +182,56 @@ export default {
           const response = await axios(config);
           console.log("apres appel")
 
-          return response.data.code === 201
+          if (response.data.code === 201){
+            await this.$router.push({name: 'astresList'})
+          } else {
+            this.erreur = 'erreur base de donnée. réessayez plus tard'
+            this.dismissCountDown = 5
+          }
         } catch (error) {
+          this.erreur = 'erreur serveur. réessayez plus tard'
+          this.dismissCountDown = 5
           console.log(error);
         }
-        return true
+      } else {
+        this.erreur = 'vérifiez que le formulaire soit correctement rempli'
+        this.dismissCountDown = 5
       }
-
-      return false;
     }
   }
 }
 </script>
 
 <style scoped>
-#form {
+#main{
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
 }
 
-#group {
-  margin-left: 2%;
+#group{
   margin-top: 2%;
-  width: 40%;
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-size: x-large;
 }
 
-#submit{
+#form {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2%;
+  font-size: small;
+}
+
+.formCote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35%;
+}
+
+#submit {
   margin: 2% 0;
   color: #ff8d00;
   border-color: #ff8d00;
@@ -158,7 +243,7 @@ export default {
   text-align: center;
 }
 
-label {
-  color: white;
+#alert{
+  width: 40%;
 }
 </style>
