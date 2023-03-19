@@ -1,11 +1,11 @@
 <template>
 <div id="header">
 
-    <nav class="links" style="--items: 5;">
-      <a class="titre" href="#">  <h3>Compar ' Astres</h3></a>
-      <a href="#">Comparer</a>
-      <a href="#">Ajouter</a>
-      <a href="#">Connexion</a>
+    <nav class="links" style="--items: 4;">
+      <router-link class="titre" :to="{ name: 'astresList'}"> <h3>Compar ' Astres</h3> </router-link>
+      <router-link to="#" href="#">Comparer</router-link>
+      <router-link :to="{ name: 'createAstre' }">Ajouter</router-link>
+      <router-link to="#">Connexion</router-link>
       <span class="line"></span>
     </nav>
 
