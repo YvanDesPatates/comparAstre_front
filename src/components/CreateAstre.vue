@@ -23,7 +23,7 @@
         <div class="formCote">
 
           <div class="titre"> image</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.image"
                         :state="imageOK ? null : false"
@@ -32,14 +32,13 @@
 
           <div class="titre"> nom</div>
           <b-form-input
-              size="sm"
               class="input"
               v-model="newAstre.nom"
               :state="nomOK ? null : false"
               trim></b-form-input>
 
           <div class="titre"> catégorie</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.categorie"
                         :state="categorieOK ? null : false"
@@ -47,14 +46,14 @@
                         trim></b-form-input>
 
           <div class="titre"> type</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.type"
                         placeholder="télurique, spirale, naine..."
                         trim></b-form-input>
 
           <div class="titre"> diamètre en km</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.taille"
                         placeholder="taille en km"
@@ -68,7 +67,7 @@
         <div class="formCote">
 
           <div class="titre"> distance Terre en ua</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.distanceTerre"
                         placeholder="son éloignement à la Terre en ua (unité astronomique)"
@@ -76,21 +75,21 @@
                         trim></b-form-input>
 
           <div class="titre"> systeme planétaire</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.systemePlanetaire"
                         placeholder="Solaire, Alpha Centauri, Liche..."
                         trim></b-form-input>
 
           <div class="titre"> galaxie</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.galaxie"
                         placeholder="Voie Lactée, Galaxie naine du Grand Chien..."
                         trim></b-form-input>
 
           <div class="titre"> température moyenne en °C</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.temperatureMoyenne"
                         placeholder="13.7, -63, 5504.85..."
@@ -98,7 +97,7 @@
                         trim></b-form-input>
 
           <div class="titre"> pesanteur en N/kg</div>
-          <b-form-input size="sm"
+          <b-form-input
                         class="input"
                         v-model="newAstre.galaxie"
                         placeholder="9.8, 3.7, 10.44..."
@@ -204,6 +203,7 @@ export default {
 
 <style scoped>
 #main{
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -214,7 +214,7 @@ export default {
   width: 100%;
   color: white;
   text-align: center;
-  font-size: x-large;
+  font-size: xx-large;
 }
 
 #form {
@@ -238,6 +238,7 @@ export default {
 }
 
 .titre {
+  font-size: x-large;
   margin-top: 5%;
   color: white;
   text-align: center;
