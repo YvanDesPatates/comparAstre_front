@@ -7,7 +7,9 @@
           class="titre onglet">  <h3>Compar ' Astres</h3></router-link>
       <a class="onglet" href="#">Comparer</a>
       <a class="onglet" href="#">Ajouter</a>
-      <a class="onglet" href="#">Connexion</a>
+      <router-link
+          :to="{ name: 'connexion-vue'}"
+          class="titre onglet">Connexion</router-link>
       <span class="line"></span>
     </nav>
 
