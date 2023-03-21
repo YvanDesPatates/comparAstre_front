@@ -1,0 +1,101 @@
+<template>
+<div id="main">
+
+  <h1>{{token}}</h1>
+
+  <b-form-group
+        id="group"
+        label="Connexion"
+        invalid-feedback="Login ou mot de passe vide"
+        :state="formOk"
+    >
+
+  <div class="titre">Login</div>
+          <b-form-input
+                        class="input"
+                        v-model="login"
+                        placeholder="Login"
+                        trim></b-form-input>
+
+  <div class="titre">Mot de passe</div>
+          <b-form-input
+                        class="input"
+                        v-model="password"
+                        placeholder="***"
+                        trim></b-form-input>
+
+  </b-form-group>
+  <div id="boutons">
+    <b-button
+        id="submit"
+        variant="outline-success"
+        @click="submitFrom"> Créer un nouveau compte
+    </b-button>
+
+    <b-button
+        id="submit"
+        variant="outline-success"
+        @click="logIn"> Se connecter
+    </b-button>
+  </div>
+
+</div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "LoginUser",
+  computed: {
+    formOk() {
+      return this.login !== "" && this.password !== "";
+    }
+  },
+  data() {
+    return {
+      login : "",
+      password : "",
+      token: null,
+    }
+  },
+
+  methods: {
+    async logIn() {
+      if (this.formOk) {
+        let config = {
+          baseURL: 'http://localhost:3000',
+          method: 'post',
+          url: 'logIn',
+          data: { login: this.login, mdp: this.password}
+        }
+        this.token = await axios(config)
+      }
+
+    }
+  }
+}
+</script>
+
+<style scoped>
+#main{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#group{
+  margin-top: 2%;
+  width: 40%;
+  color: white;
+  text-align: center;
+  font-size: xx-large;
+}
+
+#boutons{
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
