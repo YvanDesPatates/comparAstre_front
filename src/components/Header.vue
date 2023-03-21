@@ -1,19 +1,15 @@
 <template>
-<div id="header">
+  <div id="header">
 
-    <nav class="links" style="--items: 5;">
-      <router-link
-          :to="{ name: 'astresList'}"
-          class="titre onglet">  <h3>Compar ' Astres</h3></router-link>
-      <a class="onglet" href="#">Comparer</a>
-      <a class="onglet" href="#">Ajouter</a>
-      <router-link
-          :to="{ name: 'connexion-vue'}"
-          class="titre onglet">Connexion</router-link>
+    <nav class="links" style="--items: 4;">
+      <router-link class="titre" :to="{ name: 'astresList'}"> <h3>Compar ' Astres</h3> </router-link>
+      <router-link to="#" href="#">Comparer</router-link>
+      <router-link :to="{ name: 'createAstre' }">Ajouter</router-link>
+      <router-link to="#">Connexion</router-link>
       <span class="line"></span>
     </nav>
 
-</div>
+  </div>
 </template>
 
 <script>
@@ -45,7 +41,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, li, ol, ul, pre {
   padding: 0;
 }
 
-.onglet {
+a {
   color: #85c6f6;
   padding: 1em 0;
   text-decoration: none;
@@ -73,14 +69,14 @@ ul li {
   display: flex;
   justify-content: space-around;
 }
-.links > .onglet {
+.links > a {
   color: #9ab;
   padding: .75em;
   text-align: center;
   text-decoration: none;
   transition: all .5s;
 }
-.links > .onglet:hover {
+.links > a:hover {
   background: #ffffff06;
   color: #adf;
   font-size: 1.5em;
@@ -111,15 +107,15 @@ ul li {
   width: var(--width, calc(100% / var(--items)));
   --index: 0;
 }
-.links > .onglet:hover ~ .line {
+.links > a:hover ~ .line {
   opacity: 1;
 }
 
-.links > .onglet:nth-of-type(1):hover ~ .line { --index: 1; }
-.links > .onglet:nth-of-type(2):hover ~ .line { --index: 2; }
-.links > .onglet:nth-of-type(3):hover ~ .line { --index: 3; }
-.links > .onglet:nth-of-type(4):hover ~ .line { --index: 4; }
-.links > .onglet:nth-of-type(5):hover ~ .line { --index: 5; }
+.links > a:nth-of-type(1):hover ~ .line { --index: 1; }
+.links > a:nth-of-type(2):hover ~ .line { --index: 2; }
+.links > a:nth-of-type(3):hover ~ .line { --index: 3; }
+.links > a:nth-of-type(4):hover ~ .line { --index: 4; }
+.links > a:nth-of-type(5):hover ~ .line { --index: 5; }
 
 .links > a:last-of-type:hover ~ .line { --index: var(--items); }
 </style>
