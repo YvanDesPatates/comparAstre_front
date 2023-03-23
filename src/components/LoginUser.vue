@@ -3,6 +3,17 @@
 
   <h1>{{token}}</h1>
 
+  <b-alert
+        id="alert"
+        :show="dismissCountDown"
+        dismissible
+        variant="danger"
+        @dismissed="dismissCountDown=0"
+        fade
+  >
+    {{ errorResponse }}
+  </b-alert>
+
   <b-form-group
         id="group"
         label="Connexion"
@@ -29,7 +40,7 @@
     <b-button
         id="submit"
         variant="outline-success"
-        @click="submitFrom"> Créer un nouveau compte
+        @click="signIn"> Créer un nouveau compte
     </b-button>
 
     <b-button
@@ -57,6 +68,8 @@ export default {
       login : "",
       password : "",
       token: null,
+      dismissCountDown: 0,
+      errorResponse: "erreur",
     }
   },
 
@@ -71,7 +84,23 @@ export default {
         }
         this.token = await axios(config)
       }
-
+    },
+    async signIn() {
+      if (this.formOk) {
+        let config = {
+          baseURL: 'http://localhost:3000',
+          method: 'post',
+          url: 'signIn',
+          data: { login: this.login, mdp: this.password}
+        }
+        let response = await axios(config)
+        if (response.data.code === 201) {
+          await this.logIn()
+        } else {
+          this.dismissCountDown = 5
+          this.errorResponse = "Erreur : le compte n'a pas été créé" + response.data.code + response.data.message
+        }
+      }
     }
   }
 }
@@ -97,5 +126,9 @@ export default {
   width: 40%;
   display: flex;
   justify-content: space-between;
+}
+
+#alert{
+  max-width: 60%;
 }
 </style>
