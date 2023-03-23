@@ -11,7 +11,8 @@
         @dismissed="dismissCountDown=0"
         fade
   >
-    {{ errorResponse }}
+    <p class="mess">{{ errorResponse }}</p>
+    <p class="mess">{{ detailResponse }}</p>
   </b-alert>
 
   <b-form-group
@@ -70,6 +71,7 @@ export default {
       token: null,
       dismissCountDown: 0,
       errorResponse: "erreur",
+      detailResponse: "",
     }
   },
 
@@ -98,7 +100,8 @@ export default {
           await this.logIn()
         } else {
           this.dismissCountDown = 5
-          this.errorResponse = "Erreur : le compte n'a pas été créé" + response.data.code + response.data.message
+          this.errorResponse = "Erreur : le compte n'a pas été créé."
+          this.detailResponse =  + response.data.code + " : " + response.data.message
         }
       }
     }
@@ -129,6 +132,10 @@ export default {
 }
 
 #alert{
-  max-width: 60%;
+  width: 20%;
+}
+
+.mess{
+  padding: 0 2%;
 }
 </style>
