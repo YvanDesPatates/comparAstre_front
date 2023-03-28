@@ -86,8 +86,14 @@ export default {
           url: 'logIn',
           data: { login: this.login, mdp: this.password}
         }
-        let token = await axios(config)
-        this.$store.commit('setUser', this.login, token)
+        let response = await axios(config)
+        if ('token' in response.data) {
+           this.$store.commit('setUser', this.login, response.data.token )
+         } else {
+           this.dismissCountDown = 5
+           this.errorResponse = "Erreur : "
+           this.detailResponse =  + response.data.code + " : " + response.data.message
+         }
       }
     },
     async signIn() {
