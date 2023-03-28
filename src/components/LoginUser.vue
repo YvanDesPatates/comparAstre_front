@@ -1,7 +1,7 @@
 <template>
 <div id="main">
 
-  <h1>{{token}}</h1>
+  <h1>{{ user }}</h1>
 
   <b-alert
         id="alert"
@@ -62,13 +62,15 @@ export default {
   computed: {
     formOk() {
       return this.login !== "" && this.password !== "";
+    },
+    user() {
+      return this.$store.getters.getUser
     }
   },
   data() {
     return {
       login : "",
       password : "",
-      token: null,
       dismissCountDown: 0,
       errorResponse: "erreur",
       detailResponse: "",
@@ -84,7 +86,8 @@ export default {
           url: 'logIn',
           data: { login: this.login, mdp: this.password}
         }
-        this.token = await axios(config)
+        let token = await axios(config)
+        this.$store.commit('setUser', this.login, token)
       }
     },
     async signIn() {
