@@ -3,9 +3,14 @@
 
     <nav class="links" style="--items: 4;">
       <router-link class="titre" :to="{ name: 'astresList'}"> <h3>Compar ' Astres</h3> </router-link>
+      <div>
+        <div id="logged" v-if="user">Bonjour {{ user.login }}</div>
+      </div>
       <router-link to="#" href="#">Comparer</router-link>
       <router-link :to="{ name: 'createAstre' }">Ajouter</router-link>
-      <router-link :to="{ name: 'connexionUser' }">Connexion</router-link>
+
+      <b-button v-if="user" id="logout" variant="outline-success" @click="logOut">Déconnexion</b-button>
+      <router-link v-if="!user" :to="{ name: 'connexionUser' }">Connexion</router-link>
       <span class="line"></span>
     </nav>
 
@@ -14,7 +19,19 @@
 
 <script>
 export default {
-  name: "header-vue"
+  name: "header-vue",
+  computed: {
+    user() {
+      return this.$store.getters.getUser
+    }
+  },
+
+  methods: {
+    async logOut() {
+      console.log('ouiiiii')
+      this.$store.commit('logout')
+    }
+  }
 }
 </script>
 
@@ -39,6 +56,15 @@ html, body, h1, h2, h3, h4, h5, h6, p, li, ol, ul, pre {
 .content ul {
   margin: .5em 2em;
   padding: 0;
+}
+
+#logout{
+  height: 50%;
+}
+
+#logged{
+  color: rgba(255, 167, 0, 0.8);
+  font-weight: bold;
 }
 
 a {
@@ -68,6 +94,7 @@ ul li {
   font-weight: 300;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 .links > a {
   color: #9ab;

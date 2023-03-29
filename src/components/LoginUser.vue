@@ -1,7 +1,7 @@
 <template>
 <div id="main">
 
-  <h1>{{ user }}</h1>
+  <h1 v-if="user">Bienvenue {{ user.login }} :)</h1>
 
   <b-alert
         id="alert"
@@ -147,4 +147,9 @@ export default {
 .mess{
   padding: 0 2%;
 }
+
+h1{
+  color: white;
+}
+
 </style>
