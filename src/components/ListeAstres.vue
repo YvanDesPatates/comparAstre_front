@@ -1,17 +1,34 @@
 <template>
   <div>
+    <div
+        id="comparer"
+        v-if="selected.length === 2">
+      <router-link :to="{ name: 'comparAstre', params: { astreId1: selected[0], astreId2: selected[1] }}">
+        <b-button variant="outline-warning" size="lg"> comparer </b-button>
+      </router-link>
+    </div>
     <SearchBox @search="(express) => filtre(express)"></SearchBox>
     <div id="contenant">
       <Loader v-if="!isLoaded"></loader>
-      <router-link v-else class="tuile" v-for="astre in astres"
-                   :key="astre._id"
-                   :to="{ name: 'astreDetail', params: { astreId: astre.id }}">
-        <TuileAstre
-            :nom="astre.nom"
-            :categorie="astre.categorie"
-            :img="astre.image"
-        ></TuileAstre>
-      </router-link>
+      <div v-else
+           class="tuile" v-for="astre in astres"
+           :key="astre._id">
+        <router-link :to="{ name: 'astreDetail', params: { astreId: astre.id }}">
+          <TuileAstre
+              :nom="astre.nom"
+              :categorie="astre.categorie"
+              :img="astre.image"
+          ></TuileAstre>
+        </router-link>
+        <div class="checkbox">
+          <b-form-checkbox
+              @input="check(astre.id, ...arguments)"
+              switch
+              :disabled="checkDisable && !selected.includes(astre.id)"
+              size="sm"
+          > comparer </b-form-checkbox>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,16 +51,18 @@ export default {
     return {
       astres: [],
       isLoaded: false,
+      selected: [],
+      checkDisable: false
     }
   },
 
-  created() {
-    this.loadPlanetes(null)
+  async created() {
+    await this.loadPlanetes(null)
   },
 
   methods: {
     async loadPlanetes(regex) {
-      let url = regex ? "http://localhost:3000/astreByField/nom/"+regex+"*" : "http://localhost:3000/astres"
+      let url = regex ? "http://localhost:3000/astreByField/nom/" + regex + "*" : "http://localhost:3000/astres"
       const loadedPlanetes = []
       try {
         const response = await axios.get(url);
@@ -63,10 +82,27 @@ export default {
         console.log(error);
       }
     },
-    filtre(entree){
+    filtre(entree) {
       this.loadPlanetes(entree)
-    }
-  }
+    },
+
+    check(astreId, checked) {
+      if (checked) {
+        if (this.selected.length <= 2) {
+          this.selected.push(astreId)
+        }
+      } else {
+        this.selected = this.selected.filter(item => item !== astreId)
+      }
+      this.refreshDisableCheckBoxes();
+    },
+
+    refreshDisableCheckBoxes() {
+      let disableAll = this.selected.length >= 2
+      this.checkDisable = disableAll
+    },
+
+  },
 
 }
 </script>
@@ -82,6 +118,18 @@ export default {
   flex-basis: 20%;
   margin: 1%;
   text-decoration: none;
+}
+
+.checkbox{
+  color: white;
+  text-align: center;
+  font-size: small;
+}
+
+#comparer{
+  position: fixed;
+  right: 47%;
+  top: 6%;
 }
 
 </style>
