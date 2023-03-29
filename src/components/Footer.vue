@@ -36,5 +36,6 @@ h4 {
   position: fixed;
   left: 0;
   right: 0;
+  height: 10%;
 }
 </style>
