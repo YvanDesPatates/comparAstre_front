@@ -1,5 +1,7 @@
 <template>
   <div id="main">
+    <ComparaisonEvenement/>
+
     <b-alert
         id="alert"
         :show="dismissCountDown"
@@ -99,7 +101,7 @@
           <div class="titre"> pesanteur en N/kg</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.galaxie"
+                        v-model="newAstre.pesanteur"
                         placeholder="9.8, 3.7, 10.44..."
                         type="number"
                         trim></b-form-input>
@@ -122,9 +124,11 @@
 
 <script>
 import axios from "axios";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 
 export default {
   name: "CreateAstre",
+  components: {ComparaisonEvenement},
 
   computed: {
     nomOK() {
@@ -173,18 +177,15 @@ export default {
 
       if (this.formOK) {
         let config = {
-          baseURL: 'http://localhost:3000',
+          baseURL: this.$store.getters.base_URL_API,
           method: 'post',
           url: 'astre',
           data: this.newAstre,
           headers: header
         }
-        console.log(config)
 
         try {
-          console.log("avant appel")
           const response = await axios(config);
-          console.log("apres appel")
 
           if (response.data.code === 201){
             await this.$router.push({name: 'astresList'})

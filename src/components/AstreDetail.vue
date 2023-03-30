@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ComparaisonEvenement/>
     <Loader v-if="!isLoaded"></loader>
     <div v-else class="contenant card" :style="{'background-image': 'url('+astre.image+')'}">
       <div class="inner">
@@ -20,7 +21,7 @@
             <li v-if="astre.temperatureMoyenne"> température moyenne : {{ astre.temperatureMoyenne }}</li>
           </ul>
 
-          <div v-if="astre.satellites !== []"> Les principaux satellites de {{ astre.nom }}</div>
+          <div v-if=" astre.satellites && astre.satellites.length !== 0"> Les principaux satellites de {{ astre.nom }}</div>
           <ul>
             <li v-for="lune in astre.satellites" :key="lune"> {{ lune }}</li>
           </ul>
@@ -39,10 +40,12 @@
 <script>
 import axios from "axios";
 import Loader from "@/components/Loader.vue";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 
 export default {
   name: "AstreDetail",
   components: {
+    ComparaisonEvenement,
     Loader,
   },
 
@@ -62,7 +65,7 @@ export default {
       let id = this.$route.params.astreId
       try {
         const response = await axios.get(
-            "http://localhost:3000/astreByID/" + id
+            this.$store.getters.base_URL_API + "astreByID/" + id
         );
         this.astre = response.data
         this.isLoaded = true
@@ -101,49 +104,36 @@ export default {
 
 <style scoped>
 
-/*body, html {*/
-/*  !*font-family: 'Vollkorn', serif;*!*/
-/*  !*font-weight: 400;*!*/
-/*  line-height: 1.3;*/
-/*  font-size: 16px;*/
-/*}*/
-
 .card {
   height: 100%;
-  /*position: relative;*/
   padding: 20px;
-  /*box-sizing: border-box;*/
   display: flex;
-  /*align-items: flex-end;*/
   text-decoration: none;
   border: 4px solid #219fb0;
   margin-bottom: 20px;
   background-repeat: no-repeat;
-  background-position: -30px -50px;
+  /*background-position: 50px 0;*/
   background-color: black;
+  background-size: contain;
   justify-content: flex-end;
 }
 
 .inner {
+  margin-left: 60%;
   height: 50%;
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*justify-content: center;*/
-  /*align-items: center;*/
+  width: 30%;
   background: white;
-  /*box-sizing: border-box;*/
   padding: 6%;
-  margin: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 .title {
   font-size: 24px;
-  color: black;
   text-align: center;
   font-weight: 700;
   color: #181818;
-  text-shadow: 0px 2px 2px #a6f8d5;
-  /*position: relative;*/
+  text-shadow: 0 2px 2px #a6f8d5;
   margin: 0 0 20px 0;
 
 }

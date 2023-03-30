@@ -1,5 +1,6 @@
 <template>
   <div id="main">
+    <ComparaisonEvenement/>
     <Loader v-if="!isLoaded"></loader>
     <div id="photos">
       <div class="img">
@@ -72,10 +73,11 @@
 import axios from "axios";
 import Loader from "@/components/Loader.vue";
 import TuileAstre from "@/components/TuileAstre.vue";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 
 export default {
   name: "ComparaisonAstre",
-  components: {TuileAstre, Loader},
+  components: {ComparaisonEvenement, TuileAstre, Loader},
 
   async mounted() {
     await this.loadAstre(this.$route.params.astreId1, 1)
@@ -169,7 +171,7 @@ export default {
     async loadAstre(astreId, numAstre) {
       try {
         const response = await axios.get(
-            "http://localhost:3000/astreByID/" + astreId
+            this.$store.getters.base_URL_API + "astreByID/" + astreId
         );
         if (numAstre === 1) {
           this.astre1 = response.data

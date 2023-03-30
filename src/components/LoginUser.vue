@@ -1,5 +1,6 @@
 <template>
 <div id="main">
+  <ComparaisonEvenement/>
 
   <h1 v-if="user">Bienvenue {{ user.login }} :)</h1>
 
@@ -56,9 +57,11 @@
 
 <script>
 import axios from "axios";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 
 export default {
   name: "LoginUser",
+  components: {ComparaisonEvenement},
   computed: {
     formOk() {
       return this.login !== "" && this.password !== "";
@@ -81,7 +84,7 @@ export default {
     async logIn() {
       if (this.formOk) {
         let config = {
-          baseURL: 'http://localhost:3000',
+          baseURL: this.$store.getters.base_URL_API,
           method: 'post',
           url: 'logIn',
           data: { login: this.login, mdp: this.password}
@@ -102,7 +105,7 @@ export default {
     async signIn() {
       if (this.formOk) {
         let config = {
-          baseURL: 'http://localhost:3000',
+          baseURL: this.$store.getters.base_URL_API,
           method: 'post',
           url: 'signIn',
           data: { login: this.login, mdp: this.password}

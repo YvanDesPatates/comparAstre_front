@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div
-        id="comparer"
-        v-if="selected.length === 2">
-      <router-link :to="{ name: 'comparAstre', params: { astreId1: selected[0], astreId2: selected[1] }}">
-        <b-button variant="outline-warning" size="lg"> comparer </b-button>
-      </router-link>
-    </div>
+    <ComparaisonEvenement/>
     <SearchBox @search="(express) => filtre(express)"></SearchBox>
     <div id="contenant">
       <Loader v-if="!isLoaded"></loader>
@@ -38,10 +32,13 @@ import TuileAstre from "./TuileAstre.vue";
 import SearchBox from "@/components/SearchBox.vue";
 import axios from "axios";
 import Loader from "@/components/Loader.vue";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
+import eventBus from "../EventBus";
 
 export default {
   name: "ListeAstres",
   components: {
+    ComparaisonEvenement,
     TuileAstre,
     SearchBox,
     Loader
@@ -62,7 +59,8 @@ export default {
 
   methods: {
     async loadPlanetes(regex) {
-      let url = regex ? "http://localhost:3000/astreByField/nom/" + regex + "*" : "http://localhost:3000/astres"
+      let url = this.$store.getters.base_URL_API
+      url += regex ? "astreByField/nom/" + regex + "*" : "astres"
       const loadedPlanetes = []
       try {
         const response = await axios.get(url);
@@ -94,6 +92,9 @@ export default {
       } else {
         this.selected = this.selected.filter(item => item !== astreId)
       }
+      if (this.selected.length === 2){
+        eventBus.$emit('selectAstres', this.selected)
+      }
       this.refreshDisableCheckBoxes();
     },
 
@@ -124,12 +125,6 @@ export default {
   color: white;
   text-align: center;
   font-size: small;
-}
-
-#comparer{
-  position: fixed;
-  right: 47%;
-  top: 6%;
 }
 
 </style>
