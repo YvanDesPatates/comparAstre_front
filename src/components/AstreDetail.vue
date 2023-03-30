@@ -20,7 +20,7 @@
             <li v-if="astre.temperatureMoyenne"> température moyenne : {{ astre.temperatureMoyenne }}</li>
           </ul>
 
-          <div v-if="astre.satellites !== []"> Les principaux satellites de {{ astre.nom }}</div>
+          <div v-if=" astre.satellites && astre.satellites.length !== 0"> Les principaux satellites de {{ astre.nom }}</div>
           <ul>
             <li v-for="lune in astre.satellites" :key="lune"> {{ lune }}</li>
           </ul>
