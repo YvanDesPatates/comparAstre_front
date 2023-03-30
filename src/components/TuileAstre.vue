@@ -24,7 +24,7 @@ export default {
   computed: {
     imgUrl() {
       if(!this.img) {
-        return "../assets/logoAstre.png"
+        return "@/assets/logoAstre.png"
       } else {
         return this.img
       }

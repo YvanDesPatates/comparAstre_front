@@ -62,7 +62,7 @@ export default {
       let id = this.$route.params.astreId
       try {
         const response = await axios.get(
-            "http://localhost:3000/astreByID/" + id
+            this.$store.getters.base_URL_API + "astreByID/" + id
         );
         this.astre = response.data
         this.isLoaded = true

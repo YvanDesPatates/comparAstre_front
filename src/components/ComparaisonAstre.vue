@@ -169,7 +169,7 @@ export default {
     async loadAstre(astreId, numAstre) {
       try {
         const response = await axios.get(
-            "http://localhost:3000/astreByID/" + astreId
+            this.$store.getters.base_URL_API + "astreByID/" + astreId
         );
         if (numAstre === 1) {
           this.astre1 = response.data

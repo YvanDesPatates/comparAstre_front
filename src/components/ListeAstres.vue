@@ -62,7 +62,8 @@ export default {
 
   methods: {
     async loadPlanetes(regex) {
-      let url = regex ? "http://localhost:3000/astreByField/nom/" + regex + "*" : "http://localhost:3000/astres"
+      let url = this.$store.getters.base_URL_API
+      url += regex ? "astreByField/nom/" + regex + "*" : "astres"
       const loadedPlanetes = []
       try {
         const response = await axios.get(url);

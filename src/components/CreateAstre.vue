@@ -169,7 +169,7 @@ export default {
     async submitFrom() {
       if (this.formOK) {
         let config = {
-          baseURL: 'http://localhost:3000',
+          baseURL: this.$store.getters.base_URL_API,
           method: 'post',
           url: 'astre',
           data: this.newAstre
