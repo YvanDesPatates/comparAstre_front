@@ -99,7 +99,7 @@
           <div class="titre"> pesanteur en N/kg</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.galaxie"
+                        v-model="newAstre.pesanteur"
                         placeholder="9.8, 3.7, 10.44..."
                         type="number"
                         trim></b-form-input>
@@ -174,12 +174,9 @@ export default {
           url: 'astre',
           data: this.newAstre
         }
-        console.log(config)
 
         try {
-          console.log("avant appel")
           const response = await axios(config);
-          console.log("apres appel")
 
           if (response.data.code === 201){
             await this.$router.push({name: 'astresList'})

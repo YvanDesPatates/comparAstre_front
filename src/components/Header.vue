@@ -27,7 +27,6 @@ export default {
 
   methods: {
     async logOut() {
-      console.log('ouiiiii')
       this.$store.commit('logout')
     }
   }
