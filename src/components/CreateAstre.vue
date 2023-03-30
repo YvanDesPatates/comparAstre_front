@@ -167,12 +167,17 @@ export default {
 
   methods: {
     async submitFrom() {
+      const header = this.user && this.user.token
+          ? this.user.token
+          : null
+
       if (this.formOK) {
         let config = {
           baseURL: 'http://localhost:3000',
           method: 'post',
           url: 'astre',
-          data: this.newAstre
+          data: this.newAstre,
+          headers: header
         }
         console.log(config)
 
@@ -188,9 +193,13 @@ export default {
             this.dismissCountDown = 5
           }
         } catch (error) {
-          this.erreur = 'erreur serveur. réessayez plus tard'
-          this.dismissCountDown = 5
-          console.log(error);
+          // if (error.code) {
+          //   this.erreur = "Veuillez vous connecter pour ajouter un astre"
+          // } else {
+            this.erreur = 'erreur serveur. réessayez plus tard'
+            this.dismissCountDown = 5
+            console.log(error);
+          // }
         }
       } else {
         this.erreur = 'vérifiez que le formulaire soit correctement rempli'
