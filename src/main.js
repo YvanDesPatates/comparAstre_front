@@ -12,8 +12,8 @@ const store = new Vuex.Store({
     user: null
   },
   mutations: {
-    setUser (state, login, token) {
-      state.user = { login: login, token: token }
+    setUser (state, { login, token }) {
+      state.user = { login, token }
     },
     logout (state) {
       state.user = null

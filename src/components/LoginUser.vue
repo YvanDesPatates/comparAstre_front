@@ -88,7 +88,10 @@ export default {
         }
         let response = await axios(config)
         if ('token' in response.data) {
-           this.$store.commit('setUser', this.login, response.data.token )
+           this.$store.commit('setUser', {
+             login: this.login,
+             token: response.data.token
+           })
          } else {
            this.dismissCountDown = 5
            this.errorResponse = "Erreur : "
