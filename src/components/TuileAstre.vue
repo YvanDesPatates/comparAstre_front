@@ -24,7 +24,7 @@ export default {
   computed: {
     imgUrl() {
       if(!this.img) {
-        return "@/assets/logoAstre.png"
+        return "https://cdn-icons-png.flaticon.com/512/116/116859.png"
       } else {
         return this.img
       }
