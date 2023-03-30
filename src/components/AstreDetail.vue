@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ComparaisonEvenement/>
     <Loader v-if="!isLoaded"></loader>
     <div v-else class="contenant card" :style="{'background-image': 'url('+astre.image+')'}">
       <div class="inner">
@@ -39,10 +40,12 @@
 <script>
 import axios from "axios";
 import Loader from "@/components/Loader.vue";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 
 export default {
   name: "AstreDetail",
   components: {
+    ComparaisonEvenement,
     Loader,
   },
 

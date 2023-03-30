@@ -1,5 +1,6 @@
 <template>
 <div id="main">
+  <ComparaisonEvenement/>
 
   <h1 v-if="user">Bienvenue {{ user.login }} :)</h1>
 
@@ -56,9 +57,11 @@
 
 <script>
 import axios from "axios";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 
 export default {
   name: "LoginUser",
+  components: {ComparaisonEvenement},
   computed: {
     formOk() {
       return this.login !== "" && this.password !== "";

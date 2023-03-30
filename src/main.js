@@ -10,7 +10,8 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
   state: {
     user: null,
-    base_URL_API: "https://compar-astre-back.vercel.app/"
+    base_URL_API: "https://compar-astre-back.vercel.app/",
+    selectedAstres: []
   },
   mutations: {
     setUser (state, login, token) {
@@ -18,11 +19,15 @@ const store = new Vuex.Store({
     },
     logout (state) {
       state.user = null
+    },
+    setSelectedAstres (state, selected){
+      state.selectedAstres = selected
     }
   },
   getters: {
     getUser: state => state.user,
-    base_URL_API: state => state.base_URL_API
+    base_URL_API: state => state.base_URL_API,
+    selectedAstres: state => state.selectedAstres
   }
 })
 

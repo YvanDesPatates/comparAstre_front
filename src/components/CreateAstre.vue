@@ -1,5 +1,7 @@
 <template>
   <div id="main">
+    <ComparaisonEvenement/>
+
     <b-alert
         id="alert"
         :show="dismissCountDown"
@@ -122,9 +124,11 @@
 
 <script>
 import axios from "axios";
+import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 
 export default {
   name: "CreateAstre",
+  components: {ComparaisonEvenement},
 
   computed: {
     nomOK() {
