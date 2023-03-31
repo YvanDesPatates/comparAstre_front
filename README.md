@@ -14,6 +14,8 @@ Si votre port 8080 est libre, le projet est consultable à l'adresse [http://loc
 <pre>
 Pour naviguer dans le site, n'hésitez pas à créer un compte.
 Cela permettra de pouvoir créer, supprimer et mettre à jour les astres.
+
+Pour avoir un compte qui à crée déjà plusieurs astre se connecter avec les identifiants login: "juvan" mdp: "juvan"
 </pre>
 
 ### Le projet dans les grandes lignes
