@@ -241,6 +241,7 @@ export default {
   max-width: 30%;
   padding: 1%;
   border: solid white;
+  margin-bottom: 1%;
 }
 
 </style>

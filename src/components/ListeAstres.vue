@@ -6,7 +6,7 @@
       <Loader v-if="!isLoaded"></loader>
       <div v-else
            class="tuile" v-for="astre in astres"
-           :key="astre._id">
+           :key="astre.id">
         <router-link :to="{ name: 'astreDetail', params: { astreId: astre.id }}">
           <TuileAstre
               :nom="astre.nom"
@@ -14,14 +14,27 @@
               :img="astre.image"
           ></TuileAstre>
         </router-link>
-        <div class="checkbox">
-          <b-form-checkbox
-              @input="check(astre.id, ...arguments)"
-              switch
-              :disabled="checkDisable && !selected.includes(astre.id)"
-              size="sm"
-          > comparer </b-form-checkbox>
+
+        <div class="options">
+
+          <div class="checkbox">
+            <b-form-checkbox
+                @input="check(astre.id, ...arguments)"
+                switch
+                :disabled="checkDisable && !selected.includes(astre.id)"
+                size="sm"
+            > comparer
+            </b-form-checkbox>
+          </div>
+
+            <div class="actions" v-if="userCreatedThisAstre(astre.auteur)">
+              <router-link :to="{ name: 'updateAstre', params: { astreIdToUpdate: astre.id }}">
+                <p> update </p>
+              </router-link>
+          </div>
+
         </div>
+
       </div>
     </div>
   </div>
@@ -71,7 +84,8 @@ export default {
             nom: astre.nom,
             categorie: astre.categorie,
             image: astre.image,
-            id: astre._id
+            id: astre._id,
+            auteur: astre.auteur
           })
         }
         this.astres = loadedPlanetes
@@ -92,7 +106,7 @@ export default {
       } else {
         this.selected = this.selected.filter(item => item !== astreId)
       }
-      if (this.selected.length === 2){
+      if (this.selected.length === 2) {
         eventBus.$emit('selectAstres', this.selected)
       }
       this.refreshDisableCheckBoxes();
@@ -102,6 +116,10 @@ export default {
       let disableAll = this.selected.length >= 2
       this.checkDisable = disableAll
     },
+
+    userCreatedThisAstre(auteur){
+      return this.$store.getters.getUser && this.$store.getters.getUser.login === auteur
+    }
 
   },
 
@@ -121,10 +139,21 @@ export default {
   text-decoration: none;
 }
 
-.checkbox{
+.options {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  font-size: small;
+}
+
+.checkbox {
   color: white;
   text-align: center;
-  font-size: small;
+}
+
+.actions *{
+  color: #ffc107;
+  text-decoration: none;
 }
 
 </style>

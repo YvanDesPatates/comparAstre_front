@@ -2,6 +2,8 @@
   <div id="main">
     <ComparaisonEvenement/>
 
+    <Loader v-if="!isLoaded"></loader>
+
     <b-alert
         id="alert"
         :show="dismissCountDown"
@@ -27,7 +29,7 @@
           <div class="titre"> image</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.image"
+                        v-model="astreForm.image"
                         :state="imageOK ? null : false"
                         placeholder="entrez l'url d'une image"
                         trim></b-form-input>
@@ -35,14 +37,14 @@
           <div class="titre"> nom</div>
           <b-form-input
               class="input"
-              v-model="newAstre.nom"
+              v-model="astreForm.nom"
               :state="nomOK ? null : false"
               trim></b-form-input>
 
           <div class="titre"> catégorie</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.categorie"
+                        v-model="astreForm.categorie"
                         :state="categorieOK ? null : false"
                         placeholder="planète, galaxie, étoile..."
                         trim></b-form-input>
@@ -50,14 +52,14 @@
           <div class="titre"> type</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.type"
+                        v-model="astreForm.type"
                         placeholder="télurique, spirale, naine..."
                         trim></b-form-input>
 
           <div class="titre"> diamètre en km</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.taille"
+                        v-model="astreForm.taille"
                         placeholder="taille en km"
                         type="number"
                         min="0"
@@ -71,7 +73,7 @@
           <div class="titre"> distance Terre en ua</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.distanceTerre"
+                        v-model="astreForm.distanceTerre"
                         placeholder="son éloignement à la Terre en ua (unité astronomique)"
                         type="number"
                         trim></b-form-input>
@@ -79,21 +81,21 @@
           <div class="titre"> systeme planétaire</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.systemePlanetaire"
+                        v-model="astreForm.systemePlanetaire"
                         placeholder="Solaire, Alpha Centauri, Liche..."
                         trim></b-form-input>
 
           <div class="titre"> galaxie</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.galaxie"
+                        v-model="astreForm.galaxie"
                         placeholder="Voie Lactée, Galaxie naine du Grand Chien..."
                         trim></b-form-input>
 
           <div class="titre"> température moyenne en °C</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.temperatureMoyenne"
+                        v-model="astreForm.temperatureMoyenne"
                         placeholder="13.7, -63, 5504.85..."
                         type="number"
                         trim></b-form-input>
@@ -101,7 +103,7 @@
           <div class="titre"> pesanteur en N/kg</div>
           <b-form-input
                         class="input"
-                        v-model="newAstre.pesanteur"
+                        v-model="astreForm.pesanteur"
                         placeholder="9.8, 3.7, 10.44..."
                         type="number"
                         trim></b-form-input>
@@ -125,23 +127,24 @@
 <script>
 import axios from "axios";
 import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
-  name: "CreateAstre",
-  components: {ComparaisonEvenement},
+  name: "AstreForm",
+  components: {ComparaisonEvenement, Loader},
 
   computed: {
     nomOK() {
-      return this.newAstre.nom !== ""
+      return this.astreForm.nom !== ""
     },
     categorieOK() {
-      return this.newAstre.categorie !== ""
+      return this.astreForm.categorie !== ""
     },
     imageOK() {
-      return this.newAstre.image !== ""
+      return this.astreForm.image !== ""
     },
     tailleOK() {
-      return this.newAstre.taille !== ""
+      return this.astreForm.taille !== ""
     },
     formOK() {
       return this.nomOK && this.categorieOK && this.imageOK && this.tailleOK
@@ -150,10 +153,12 @@ export default {
 
   data() {
     return {
+      update: false,
       erreur: 'erreur',
       dismissCountDown: 0,
       invalidFeedback: 'remplir les champs obligatoires',
-      newAstre: {
+      isLoaded: false,
+      astreForm: {
         image: "",
         auteur: this.user && this.user.login ? this.user.login : "Anonyme",
         nom: "",
@@ -169,8 +174,20 @@ export default {
     }
   },
 
+  mounted() {
+    if (this.$route.params.astreIdToUpdate){
+      this.loadAstre(this.$route.params.astreIdToUpdate)
+      this.update = true;
+    } else {
+      this.isLoaded = true;
+    }
+  },
+
   methods: {
     async submitFrom() {
+      let httpMethod = this.update ? 'put' : 'post'
+      let urlPath = this.update ? 'updateAstre' : 'astre'
+
       const header = this.user && this.user.token
           ? "Bearer " + this.user.token
           : null
@@ -178,16 +195,16 @@ export default {
       if (this.formOK) {
         let config = {
           baseURL: this.$store.getters.base_URL_API,
-          method: 'post',
-          url: 'astre',
-          data: this.newAstre,
+          method: httpMethod,
+          url: urlPath,
+          data: this.astreForm,
           headers: header
         }
 
         try {
           const response = await axios(config);
 
-          if (response.data.code === 201){
+          if (response.data.code === 201 || response.data.code === 200){
             await this.$router.push({name: 'astresList'})
           } else {
             this.erreur = 'erreur base de donnée. réessayez plus tard'
@@ -206,6 +223,21 @@ export default {
         this.erreur = 'vérifiez que le formulaire soit correctement rempli'
         this.dismissCountDown = 5
       }
+    },
+
+    async loadAstre(id) {
+      try {
+        const response = await axios.get(
+            this.$store.getters.base_URL_API + "astreByID/" + id
+        );
+        this.astreForm = response.data
+        this.isLoaded = true
+      } catch (error) {
+        console.log(error);
+        this.erreur = "ERREUR : cet astre n'existe pas"
+        this.dismissCountDown = 5
+      }
+      console.log(this.astreForm)
     }
   }
 }
