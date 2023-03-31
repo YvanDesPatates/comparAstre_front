@@ -131,6 +131,9 @@ export default {
   components: {ComparaisonEvenement},
 
   computed: {
+    user() {
+      return this.$store.getters.getUser
+    },
     nomOK() {
       return this.newAstre.nom !== ""
     },
@@ -155,7 +158,8 @@ export default {
       invalidFeedback: 'remplir les champs obligatoires',
       newAstre: {
         image: "",
-        auteur: this.user && this.user.login ? this.user.login : "Anonyme",
+        auteur: "Anonyme", //le lier au nom de l'utilisateur connecté
+        // this.user && this.user.login ? this.user.login : "Anonyme",
         nom: "",
         categorie: "",
         type: null,
@@ -171,8 +175,8 @@ export default {
 
   methods: {
     async submitFrom() {
-      const header = this.user && this.user.token
-          ? "Bearer " + this.user.token
+      const header = this.user?.token
+          ? {Authorization: "Bearer " + this.user?.token}
           : null
 
       if (this.formOK) {
