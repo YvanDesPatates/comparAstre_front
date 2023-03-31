@@ -20,11 +20,11 @@ Cela permettra de pouvoir créer, supprimer et mettre à jour les astres.
 - Communication avec notre API via axios
 - Ajout de computed en plus des données : rayon, volume, densité (affichage selon les données présentes dans l'astre en question)
 - Barre de recherche pour filtrer les astres par nom
-- CRUD des astres, avec vérification des droits pour l'update et le delete (un utilisateur ne peu delete que les astres qu'il à crée)
+- CRUD des astres, avec vérification des droits pour l'update et le delete (un utilisateur ne peu delete que les astres qu'il a crée)
 - Utilisation d'une transition en fondue entre les pages et d'un loader (visible surtout sur la page d'accueil)
 - Création d'un système de comparaison en utilisant l'EventBus
 - Gestion de la connexion avec enregistrement dans le store de VueX
-- Utilisation de la session pour garder la connexion même en cas de refresh
+- Utilisation de cookie pour rendre le store persistant
 - Utilisation de Bootsrap-Vue
 
 
