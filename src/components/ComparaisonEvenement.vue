@@ -31,8 +31,8 @@ export default {
 <style>
 #comparer{
   position: fixed;
-  right: 42%;
-  top: 1%;
+  right: 45%;
+  top: 10%;
 }
 
 </style>
