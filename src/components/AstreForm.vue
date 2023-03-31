@@ -118,7 +118,7 @@
     <b-button
         id="submit"
         variant="outline-success"
-        @click="submitFrom"> créer
+        @click="submitFrom"> <span v-if="update">mettre à jour</span> <span v-else>créer</span>
     </b-button>
   </div>
 
@@ -189,6 +189,9 @@ export default {
 
   methods: {
     async submitFrom() {
+      let httpMethod = this.update ? 'put' : 'post'
+      let urlPath = this.update ? 'updateAstre' : 'astre'
+
       const header = this.user?.token
           ? {Authorization: "Bearer " + this.user?.token}
           : null
