@@ -19,8 +19,10 @@
               @input="check(astre.id, ...arguments)"
               switch
               :disabled="checkDisable && !selected.includes(astre.id)"
+              :checked="selected.includes(astre.id)"
               size="sm"
-          > comparer </b-form-checkbox>
+          > comparer
+          </b-form-checkbox>
         </div>
       </div>
     </div>
@@ -54,6 +56,8 @@ export default {
   },
 
   async created() {
+    this.selected = this.$store.getters.selectedAstres
+    this.refreshDisableCheckBoxes()
     await this.loadPlanetes(null)
   },
 
@@ -92,9 +96,7 @@ export default {
       } else {
         this.selected = this.selected.filter(item => item !== astreId)
       }
-      if (this.selected.length === 2){
-        eventBus.$emit('selectAstres', this.selected)
-      }
+      eventBus.$emit('selectAstres', this.selected)
       this.refreshDisableCheckBoxes();
     },
 
@@ -121,7 +123,7 @@ export default {
   text-decoration: none;
 }
 
-.checkbox{
+.checkbox {
   color: white;
   text-align: center;
   font-size: small;
