@@ -47,7 +47,7 @@
           </div>
 
           <div class="actions">
-            <b-button variant="outline-success" @click="deleteAstre(astre.id)"> supprimer </b-button>
+            <b-button variant="default" style="font-size: small" @click="deleteAstre(astre.id)"> supprimer </b-button>
           </div>
 
         </div>
