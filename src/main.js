@@ -11,8 +11,8 @@ const store = new Vuex.Store({
   state: {
     user: null,
     base_URL_API:
-        "http://localhost:3000/",
-// "https://compar-astre-back.vercel.app/",
+        // "http://localhost:3000/",
+        "https://compar-astre-back.vercel.app/",
     selectedAstres: []
   },
   mutations: {
