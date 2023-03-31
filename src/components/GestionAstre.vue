@@ -1,7 +1,19 @@
 <template>
   <div>
     <ComparaisonEvenement/>
-    <SearchBox @search="(express) => filtre(express)"></SearchBox>
+
+    <b-alert
+        id="alert"
+        :show="dismissCountDown"
+        dismissible
+        variant="danger"
+        @dismissed="dismissCountDown=0"
+        fade
+    >
+      <p class="mess">{{ errorResponse }}</p>
+      <p class="mess">{{ detailResponse }}</p>
+    </b-alert>
+
     <div id="contenant">
       <Loader v-if="!isLoaded"></loader>
       <div v-else
@@ -28,6 +40,16 @@
             </b-form-checkbox>
           </div>
 
+          <div class="actions">
+            <router-link :to="{ name: 'updateAstre', params: { astreIdToUpdate: astre.id }}">
+              <p> update </p>
+            </router-link>
+          </div>
+
+          <div class="actions">
+            <b-button variant="outline-success" @click="deleteAstre(astre.id)"> supprimer </b-button>
+          </div>
+
         </div>
 
       </div>
@@ -37,19 +59,23 @@
 
 <script>
 import TuileAstre from "./TuileAstre.vue";
-import SearchBox from "@/components/SearchBox.vue";
 import axios from "axios";
 import Loader from "@/components/Loader.vue";
 import ComparaisonEvenement from "@/components/ComparaisonEvenement.vue";
 import eventBus from "../EventBus";
 
 export default {
-  name: "ListeAstres",
+  name: "GestionAstre",
   components: {
     ComparaisonEvenement,
     TuileAstre,
-    SearchBox,
     Loader
+  },
+
+  computed: {
+    user() {
+      return this.$store.getters.getUser
+    }
   },
 
   data() {
@@ -57,20 +83,22 @@ export default {
       astres: [],
       isLoaded: false,
       selected: [],
-      checkDisable: false
+      checkDisable: false,
+      dismissCountDown: 0,
+      errorResponse: "",
+      detailResponse: "",
     }
   },
 
   async created() {
     this.selected = this.$store.getters.selectedAstres
     this.refreshDisableCheckBoxes()
-    await this.loadPlanetes(null)
+    await this.loadPlanetes()
   },
 
   methods: {
-    async loadPlanetes(regex) {
-      let url = this.$store.getters.base_URL_API
-      url += regex ? "astreByField/nom/" + regex + "*" : "astres"
+    async loadPlanetes() {
+      let url = this.$store.getters.base_URL_API + "astreByAuteur/" + this.user.login
       const loadedPlanetes = []
       try {
         const response = await axios.get(url);
@@ -91,9 +119,6 @@ export default {
         console.log(error);
       }
     },
-    filtre(entree) {
-      this.loadPlanetes(entree)
-    },
 
     check(astreId, checked) {
       if (checked) {
@@ -111,6 +136,22 @@ export default {
       let disableAll = this.selected.length >= 2
       this.checkDisable = disableAll
     },
+
+    async deleteAstre(astreId) {
+      let response
+      let url = this.$store.getters.base_URL_API + "deleteAstre/" + astreId
+      try {
+        response = await axios.delete(url);
+        this.dismissCountDown = 5
+        this.detailResponse = "Suppression réussie"
+        await this.loadPlanetes()
+        console.log(response)
+      } catch (error) {
+        this.dismissCountDown = 5
+        this.errorResponse = "Erreur : "
+        this.detailResponse = response.status + " : " + response.statusText
+      }
+    }
 
   },
 
@@ -140,6 +181,11 @@ export default {
 .checkbox {
   color: white;
   text-align: center;
+}
+
+.actions * {
+  color: #ffc107;
+  text-decoration: none;
 }
 
 </style>

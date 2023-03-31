@@ -10,7 +10,9 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
   state: {
     user: null,
-    base_URL_API: "https://compar-astre-back.vercel.app/",
+    base_URL_API:
+        "http://localhost:3000/",
+// "https://compar-astre-back.vercel.app/",
     selectedAstres: []
   },
   mutations: {

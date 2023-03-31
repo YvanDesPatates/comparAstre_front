@@ -5,7 +5,7 @@ import astre from '@/components/AstreDetail.vue'
 import astreForm from "@/components/AstreForm.vue";
 import connexion from "@/components/LoginUser.vue";
 import comparAstre from "@/components/ComparaisonAstre.vue";
-import gestionAstre from "@/components/UserAstres.vue";
+import gestionAstre from "@/components/GestionAstre.vue";
 
 
 Vue.use(VueRouter)
