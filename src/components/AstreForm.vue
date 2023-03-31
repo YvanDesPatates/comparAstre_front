@@ -134,6 +134,9 @@ export default {
   components: {ComparaisonEvenement, Loader},
 
   computed: {
+    user() {
+      return this.$store.getters.getUser
+    },
     nomOK() {
       return this.astreForm.nom !== ""
     },
@@ -160,7 +163,8 @@ export default {
       isLoaded: false,
       astreForm: {
         image: "",
-        auteur: this.user && this.user.login ? this.user.login : "Anonyme",
+        auteur: "Anonyme", //le lier au nom de l'utilisateur connecté
+        // this.user && this.user.login ? this.user.login : "Anonyme",
         nom: "",
         categorie: "",
         type: null,
@@ -185,11 +189,8 @@ export default {
 
   methods: {
     async submitFrom() {
-      let httpMethod = this.update ? 'put' : 'post'
-      let urlPath = this.update ? 'updateAstre' : 'astre'
-
-      const header = this.user && this.user.token
-          ? "Bearer " + this.user.token
+      const header = this.user?.token
+          ? {Authorization: "Bearer " + this.user?.token}
           : null
 
       if (this.formOK) {
