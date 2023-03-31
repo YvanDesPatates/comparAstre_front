@@ -163,8 +163,7 @@ export default {
       isLoaded: false,
       astreForm: {
         image: "",
-        auteur: "Anonyme", //le lier au nom de l'utilisateur connecté
-        // this.user && this.user.login ? this.user.login : "Anonyme",
+        auteur: "Anonyme",
         nom: "",
         categorie: "",
         type: null,
@@ -197,6 +196,7 @@ export default {
           : null
 
       if (this.formOK) {
+        this.astreForm.auteur = this.user?.login ? this.user.login : "Anonyme"
         let config = {
           baseURL: this.$store.getters.base_URL_API,
           method: httpMethod,

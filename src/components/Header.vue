@@ -7,7 +7,7 @@
         <div id="logged" v-if="user">Bonjour {{ user.login }}</div>
       </div>
       <router-link  v-if="user" :to="{ name: 'createAstre' }">Ajouter</router-link>
-
+      <router-link v-if="user" :to="{ name: 'gestionAstre' }">Mes astres</router-link>
       <b-button v-if="user" id="logout" variant="outline-success" @click="logOut">Déconnexion</b-button>
       <router-link v-if="!user" :to="{ name: 'connexionUser' }">Connexion</router-link>
       <span class="line"></span>
