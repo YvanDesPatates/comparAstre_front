@@ -2,6 +2,9 @@
 Un site de recensement et de comparaisons entre les astres
 
 ## lancer le projet
+Notre site est en production sur vercel, accessible via l'adresse : https://compar-astre-front.vercel.app/
+
+Pour une installation locale :
 ```
 git clone https://github.com/YvanDesPatates/comparAstre_front.git
 cd comparAstre_front/
